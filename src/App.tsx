@@ -1,6 +1,7 @@
 import React from 'react';
-import { Switch, Link, withRouter } from 'react-router-dom';
+import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import Home from './components/home';
+import Login from './components/Login';
 import {connect} from 'react-redux';
 import './reset.css';
 import './App.css';
@@ -11,7 +12,8 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Switch>
-        <Home />
+        <Route exact path='/' component={Login}/>
+        <Route path='/home' component={Home} />
       </Switch>
       
     </div>
