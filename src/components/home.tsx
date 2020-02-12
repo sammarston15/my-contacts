@@ -21,7 +21,7 @@ const Home: React.FC = () => {
             </div>
             <div className="contact-list-container">
                 <div>contact-list-container</div>
-                <div className="contact-list-card"></div>
+                <div className="contact-list-card">contact name here*</div>
             </div>
             <div className="contact-info-container">
                 contact-info-container

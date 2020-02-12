@@ -3,6 +3,7 @@ import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import Home from './components/home';
 import Login from './components/Login';
 import {connect} from 'react-redux';
+import { loginUser } from './redux/actions';
 import './reset.css';
 import './App.css';
 
@@ -29,4 +30,4 @@ const mapStateToProps = (state: any) => {
 }
 
 
-export default connect(mapStateToProps, {})(withRouter(App));
+export default connect(mapStateToProps, {loginUser: loginUser})(withRouter(App));

@@ -4,3 +4,9 @@ export const getContacts = (contacts: any) => {
         payload: contacts
     }
 }
+
+export const loginUser = () => {
+    return {
+        type: 'LOGIN_USER'
+    }
+}
