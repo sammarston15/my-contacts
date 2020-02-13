@@ -1,0 +1,31 @@
+/* Login page */
+.login-page{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-modal {
+    width: 400px;
+    height: 300px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.login-modal input {
+    height: 30px;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.login-modal button {
+    height: 30px;
+    width: 70px;
+    border-radius: 5px;
+    font-size: 18px;
+}
