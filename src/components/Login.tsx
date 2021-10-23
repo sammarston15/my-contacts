@@ -1,50 +1,36 @@
-import React,{ Component, FormEvent } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import './login.css'
 
 
-
-type state = {
-    username: string,
-    password: string
+const defaultState = {
+    username: '',
+    password: ''
 }
 
-export default class Login extends Component<{}, state> {
-    constructor(props: state) {
-        super(props);
+const Login = () => {
+    const [data, setData] = useState(defaultState);
+    const {username, password} = data;
 
-        this.state = {
-            username: '',
-            password: ''
-        }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.persist()
+        setData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }))
     }
-
-
-    handleChangeUsername = (e: React.FormEvent<HTMLInputElement>): void => this.setState({username: (e.target as HTMLInputElement).value})
-    handleChangePassword = (e: React.FormEvent<HTMLInputElement>): void => this.setState({password: (e.target as HTMLInputElement).value})
-
-
-    handleLogin = async () => {
-        try {
-            if (this.state.username && this.state.password) {
-                let login = await axios.post('/api/login', this.state);
-                
-            }
-        } catch (error) {
-            
-        }
-    }
-
-
-    render() { 
-        return(
-            <div className='login-page'>
-                <div className='login-modal'>
-                    <input placeholder='username' onChange={this.handleChangeUsername} type="text"/>
-                    <input placeholder="password" onChange={this.handleChangePassword} type="password"/>
-                    <button>login</button>
-                </div>
+    
+    console.log(data)
+    return(
+        <div className='login-page'>
+            <div className='login-modal'>
+                <div className='icon'><i className="fas fa-user"></i></div>
+                <input type="text" placeholder='username' name='username' value={username} onChange={handleChange} />
+                <input type="password" placeholder="password" name='password' value={password} onChange={handleChange} />
+                <button>log in</button>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default Login;
