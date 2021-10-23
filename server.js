@@ -3,7 +3,6 @@ const session = require('express-session');
 const massive = require('massive');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
 const path = require('path');
 const controller = require('./ctrl');
 require('dotenv').config();
@@ -25,13 +24,21 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
-app.cors(({ credentials: true, origin: '*' }));
+app.use(cors({ credentials: true, origin: '*'}));
 
 
 // endpoints
+app.post('/signup', controller.createSignup);
+app.post('/login', controller.createLogin);
 
 
 
 
+// this is a catch all so that your front end always shows up when hosted
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build/index.html'))
+})
 
-app.listen(8080, () => console.log('listening on port 8080'));
+
+// this is the listen for the port which heroku is giving your your server through the process.env.PORT 
+app.listen(process.env.PORT || 8080, () => console.log('ready!!'));

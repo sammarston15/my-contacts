@@ -27,6 +27,27 @@ module.exports = {
         } catch (error) {
             
         }
-    }
+    },
+    createSignup: async (req, res, next) => {
+        try {
+          const { firstName, lastName, username, password } = req.body;
+          const db = req.app.get("db");
+    
+          const hash = await bcrypt.hash(password, 10);
+    
+          const newUser = await db.employees.insert({
+            first_name: firstName,
+            last_name: lastName,
+            username: username,
+            password: hash
+          });
+    
+          delete newUser.password;
+          res.send(newUser);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send(error);
+        }
+      },
 
 }
