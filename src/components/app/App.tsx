@@ -8,12 +8,8 @@ export const App: FC = () => (
   <Router>
     <div className={styles.App}>
       <Switch>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/">
-          <Login />
-        </Route>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
       </Switch>
     </div>
   </Router>
