@@ -1,9 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { User } from "../../models/interfaces/user";
 import { setNewUser } from "../../redux/contacts/actions";
 import { selectUser } from "../../redux/contacts/selectors";
 import styles from "./home.module.scss";
+
+// Components
+import Header from '../header/Header'
 
 export const Home: FC = () => {
   // DISPATCH HOOK
@@ -24,18 +27,14 @@ export const Home: FC = () => {
   //     )
   //   })
 
+  useEffect(() => {
+    console.log('render home page')
+  })
+
   return (
     <div className={styles.home}>
-      <div className={styles.menuContainer}>
-        <div>menu-container</div>
-        <div className={styles.menuItem}>All contacts</div>
-        <div className={styles.menuItem}>Groups</div>
-      </div>
-      <div className={styles.contactListContainer}>
-        <div>contact-list-container</div>
-        <div className={styles.contactListCard}>contact name here*</div>
-      </div>
-      <div className={styles.contactInfoContainer}>contact-info-container</div>
+      <Header />
+      <div className={styles.homeBody}>Home body</div>
     </div>
   );
 };
