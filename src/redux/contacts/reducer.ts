@@ -1,9 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
+import { Contact } from "../../models/interfaces/contact";
 import { User } from "../../models/interfaces/user";
 import * as ContactActions from "./actions";
 
 interface ContactsState {
-  contacts: User[];
+  contacts: Contact[];
   user: User;
   isLoggedIn: boolean;
 }
@@ -17,7 +18,7 @@ const initialState: ContactsState = {
 const contactReducer = createReducer(initialState, (contacts) => {
   contacts
     .addCase(
-      ContactActions.setNewContacts,
+      ContactActions.getAllContacts,
       (state: ContactsState, { payload }) => ({
         ...state,
         contacts: payload,

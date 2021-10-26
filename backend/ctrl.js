@@ -1,4 +1,6 @@
 const bcrypt = require("bcrypt");
+const { send } = require("node:process");
+
 
 const createLogin = async (req, res) => {
   try {
@@ -53,7 +55,23 @@ const createSignup = async (req, res, next) => {
   }
 };
 
+const getContacts = async (req, res) => {
+  try {
+    const db = req.app.get('db');
+
+    // get all contacts
+    db.query(`select * from contacts`).then(response => {
+      console.log(response)
+      res.status(200).send(response)
+    }).catch(error => console.log('query catch: ', error))
+  } catch (error) {
+    console.log(error)
+    res.send(`async catch: ${error}`)
+  }
+}
+
 module.exports = {
   createLogin,
   createSignup,
+  getContacts
 };
