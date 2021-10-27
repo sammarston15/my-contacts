@@ -7,20 +7,27 @@ interface ContactsState {
   contacts: Contact[];
   user: User;
   isLoggedIn: boolean;
+  loading: boolean;
 }
 
 const initialState: ContactsState = {
   contacts: [],
   user: {} as User,
   isLoggedIn: false,
+  loading: false
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
   contacts
+    .addCase(ContactActions.getAllContacts.pending, (state: ContactsState) => ({
+      ...state,
+      loading: true
+    }))
     .addCase(
-      ContactActions.getAllContacts,
+      ContactActions.getAllContacts.fulfilled,
       (state: ContactsState, { payload }) => ({
         ...state,
+        loading: false,
         contacts: payload,
       })
     )
