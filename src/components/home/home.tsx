@@ -2,7 +2,7 @@ import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { User } from "../../models/interfaces/user";
 import { setNewUser, getAllContacts } from "../../redux/contacts/actions";
-import { selectContacts, selectUser } from "../../redux/contacts/selectors";
+import { selectContacts, selectIsLoading, selectUser } from "../../redux/contacts/selectors";
 import styles from "./home.module.scss";
 import axios from "axios";
 
@@ -14,15 +14,15 @@ export const Home: FC = () => {
   const dispatch = useDispatch();
 
   // SELECTORS
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
   const contacts = useSelector(selectContacts);
+  const loading = useSelector(selectIsLoading);
 
   // DISPATCHERS
   // const handleLogin = (currentUser: User) => dispatch(setNewUser(currentUser));
 
   useEffect(() => {
-    dispatch(getAllContacts());
-    console.log('dispatch "getAllContacts" action/thunk')
+    dispatch(getAllContacts())
   }, []);
 
   return (
@@ -40,7 +40,10 @@ export const Home: FC = () => {
           <div>State</div>
           <div>Zip</div>
         </div>
-        {contacts.map((contact, i) => (
+        {loading && contacts == undefined? 
+        <h1>loading</h1>
+        :
+        contacts.map((contact, i) => (
           <div className={styles.contactCard} key={i}>
             <div>{contact.firstName}</div>
             <div>{contact.lastName}</div>
@@ -52,7 +55,8 @@ export const Home: FC = () => {
             <div>{contact.state}</div>
             <div>{contact.zip}</div>
           </div>
-        ))}
+        ))
+        }
       </div>
     </div>
   );
