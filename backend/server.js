@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const massive = require("massive");
 const cors = require("cors");
-const bodyParser = require("body-parser");
+const PORT = process.env.PORT || 8080;
 const path = require("path");
 const controller = require("./ctrl");
 require("dotenv").config();
@@ -23,10 +23,11 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "build")));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors({ credentials: true, origin: "*" }));
 
 // endpoints
+app.get("/api/contacts", controller.getContacts);
 app.post("/signup", controller.createSignup);
 app.post("/login", controller.createLogin);
 
@@ -36,6 +37,4 @@ app.get("*", (req, res) => {
 });
 
 // this is the listen for the port which heroku is giving your your server through the process.env.PORT
-app.listen(process.env.PORT || 8080, () =>
-  console.log(process.env.PORT, "ready!!")
-);
+app.listen(PORT, () => console.log(PORT, "ready!!"));

@@ -6,7 +6,9 @@ const createLogin = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      res.status(401).send("Please enter a valid username and password.");
+      return res
+        .status(401)
+        .send("Please enter a valid username and password.");
     }
 
     const user = await db.users.find({ username });
@@ -53,7 +55,28 @@ const createSignup = async (req, res, next) => {
   }
 };
 
+const getContacts = async (req, res) => {
+  console.log({ req, app: req.app });
+  try {
+    const db = await req.app.get("db");
+
+    // get all contacts
+    const contacts = await db.query(`select * from contacts`);
+    res.status(200).send(
+      contacts.map((contact) => ({
+        ...contact,
+        firstName: contact.first_name,
+        lastName: contact.last_name,
+      }))
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(`async catch: ${error}`);
+  }
+};
+
 module.exports = {
   createLogin,
   createSignup,
+  getContacts,
 };
