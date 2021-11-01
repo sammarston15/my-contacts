@@ -8,6 +8,7 @@ import axios from "axios";
 
 // Components
 import Header from "../header/Header";
+import ContactsList from '../home/ContactsList';
 
 export const Home: FC = () => {
   // DISPATCH HOOK
@@ -17,47 +18,34 @@ export const Home: FC = () => {
   // const user = useSelector(selectUser);
   const contacts = useSelector(selectContacts);
   const loading = useSelector(selectIsLoading);
+  
 
   // DISPATCHERS
   // const handleLogin = (currentUser: User) => dispatch(setNewUser(currentUser));
 
+  const contactsMap = contacts.map((contact, i) => (
+    <div className={styles.contactCard} key={i}>
+      <div>{contact.firstName}</div>
+      <div>{contact.lastName}</div>
+      <div>{contact.phone}</div>
+      <div>{contact.email}</div>
+      <div>{contact.address1}</div>
+      <div>{contact.address2}</div>
+      <div>{contact.city}</div>
+      <div>{contact.state}</div>
+      <div>{contact.zip}</div>
+    </div>
+  ))
+
   useEffect(() => {
     dispatch(getAllContacts())
+    console.log(contacts)
   }, []);
 
   return (
     <div className={styles.home}>
       <Header />
-      <div className={styles.contactList}>
-        <div className={styles.listHeader}>
-          <div>First</div>
-          <div>Last</div>
-          <div>Phone</div>
-          <div>Email</div>
-          <div>Address 1</div>
-          <div>Address 2</div>
-          <div>City</div>
-          <div>State</div>
-          <div>Zip</div>
-        </div>
-        {loading && contacts === undefined? 
-        <h1>loading</h1>
-        :
-        contacts.map((contact, i) => (
-          <div className={styles.contactCard} key={i}>
-            <div>{contact.firstName}</div>
-            <div>{contact.lastName}</div>
-            <div>{contact.phone}</div>
-            <div>{contact.email}</div>
-            <div>{contact.address1}</div>
-            <div>{contact.address2}</div>
-            <div>{contact.city}</div>
-            <div>{contact.state}</div>
-            <div>{contact.zip}</div>
-          </div>
-        ))
-        }
-      </div>
+      <ContactsList />
     </div>
   );
 };

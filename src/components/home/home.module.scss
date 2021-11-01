@@ -5,11 +5,17 @@
   display: flex;
   flex-direction: column;
 
+  .sortDropdownContainer{
+    background: blue;
+    height: 50px;
+    width: 100%;
+  }
+
   .contactList {
     height: calc(100% - 50px - 2rem); // header height and home body padding
     width: calc(100% - 2rem);
     background: grey;
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
 
