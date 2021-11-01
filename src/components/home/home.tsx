@@ -40,7 +40,7 @@ export const Home: FC = () => {
           <div>State</div>
           <div>Zip</div>
         </div>
-        {loading && contacts == undefined? 
+        {loading && contacts === undefined? 
         <h1>loading</h1>
         :
         contacts.map((contact, i) => (
