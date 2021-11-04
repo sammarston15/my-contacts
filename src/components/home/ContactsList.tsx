@@ -36,10 +36,6 @@ const ContactsList = () => {
     dispatch(getAllContacts());
   }, []);
 
-  useEffect(() => {
-    console.log(contacts);
-  }, [contacts]);
-
   return (
     <>
       <div className={styles.sortDropdownContainer}>
