@@ -1,19 +1,22 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllContacts, setSortStatus } from '../../redux/contacts/actions';
-import { selectContacts, selectIsLoading, selectSortStatus } from '../../redux/contacts/selectors';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllContacts, setSortStatus } from "../../redux/contacts/actions";
+import {
+  selectContacts,
+  selectIsLoading,
+  selectSortStatus,
+} from "../../redux/contacts/selectors";
 import styles from "./home.module.scss";
-import { SortValues } from '../../models/SortValues';
+import { SortValues } from "../../models/SortValues";
 
 const ContactsList = () => {
   // DISPATCH HOOK
   const dispatch = useDispatch();
 
   // SELECTORS
-  const contacts = useSelector(selectContacts);
   const loading = useSelector(selectIsLoading);
   const sortStatus = useSelector(selectSortStatus);
-
+  const contacts = useSelector(selectContacts(sortStatus));
 
   const contactsMap = contacts.map((contact, i) => (
     <div className={styles.contactCard} key={i}>
@@ -27,18 +30,26 @@ const ContactsList = () => {
       <div>{contact.state}</div>
       <div>{contact.zip}</div>
     </div>
-  ))
+  ));
 
   useEffect(() => {
-    dispatch(getAllContacts())
+    dispatch(getAllContacts());
   }, []);
+
+  useEffect(() => {
+    console.log(contacts);
+  }, [contacts]);
 
   return (
     <>
       <div className={styles.sortDropdownContainer}>
-        <select value={sortStatus} onChange={(e) => {
-          dispatch(setSortStatus(e.target.value))
-        }}>
+        <select
+          value={sortStatus}
+          onChange={(e) => {
+            console.log(e.target.value);
+            dispatch(setSortStatus(e.target.value));
+          }}
+        >
           {/* <option value=>Sort Contacts</option> */}
           <option value={SortValues.FIRST_ASC}>First Name: A-Z</option>
           <option value={SortValues.FIRST_DESC}>First Name: Z-A</option>
@@ -58,14 +69,10 @@ const ContactsList = () => {
           <div>State</div>
           <div>Zip</div>
         </div>
-        {loading && contacts === undefined? 
-        <h1>loading</h1>
-        :
-        contactsMap
-        }
+        {loading && contacts === undefined ? <h1>loading</h1> : contactsMap}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ContactsList
+export default ContactsList;
