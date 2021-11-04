@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllContacts, setSortStatus } from '../../redux/contacts/actions';
 import { selectContacts, selectIsLoading, selectSortStatus } from '../../redux/contacts/selectors';
 import styles from "./home.module.scss";
+import { SortValues } from '../../models/SortValues';
 
 const ContactsList = () => {
   // DISPATCH HOOK
@@ -13,21 +14,6 @@ const ContactsList = () => {
   const loading = useSelector(selectIsLoading);
   const sortStatus = useSelector(selectSortStatus);
 
-  const sortContacts = () => {
-    console.log('hit sortContacts function: ', contacts)
-    console.log('sortStatus at begging of function: ', sortStatus)
-    if (sortStatus === 'first-ascending') {
-      contacts.sort((a: any, b: any) => {
-        console.log('sort firstName a-z: ', contacts)
-        return a.firstName - b.lastName
-      })
-    } else if (sortStatus === 'descending') {
-      contacts.sort((a: any, b: any) => b - a)
-    } else {
-      console.log('sortStatus: ', sortStatus)
-      console.log('else...sortStatus did not match')
-    }
-  }
 
   const contactsMap = contacts.map((contact, i) => (
     <div className={styles.contactCard} key={i}>
@@ -43,20 +29,21 @@ const ContactsList = () => {
     </div>
   ))
 
+  useEffect(() => {
+    dispatch(getAllContacts())
+  }, []);
 
   return (
     <>
       <div className={styles.sortDropdownContainer}>
         <select value={sortStatus} onChange={(e) => {
           dispatch(setSortStatus(e.target.value))
-          console.log('sortStatus during onChange: ', sortStatus)
-          sortContacts()
         }}>
-          <option value="default">Sort Contacts</option>
-          <option value="first-ascending">First Name: A-Z</option>
-          <option value="first-descending">First Name: Z-A</option>
-          <option value="last-ascending">Last Name: A-Z</option>
-          <option value="last-descending">Last Name: Z-A</option>
+          {/* <option value=>Sort Contacts</option> */}
+          <option value={SortValues.FIRST_ASC}>First Name: A-Z</option>
+          <option value={SortValues.FIRST_DESC}>First Name: Z-A</option>
+          <option value={SortValues.LAST_ASC}>Last Name: A-Z</option>
+          <option value={SortValues.LAST_DESC}>Last Name: Z-A</option>
         </select>
       </div>
       <div className={styles.contactList}>

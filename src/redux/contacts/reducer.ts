@@ -2,13 +2,14 @@ import { createReducer } from "@reduxjs/toolkit";
 import { Contact } from "../../models/interfaces/contact";
 import { User } from "../../models/interfaces/user";
 import * as ContactActions from "./actions";
+import { SortValues } from '../../models/SortValues'
 
 interface ContactsState {
   contacts: Contact[];
   user: User;
   isLoggedIn: boolean;
   loading: boolean;
-  sortStatus: string;
+  sortStatus: SortValues;
 }
 
 const initialState: ContactsState = {
@@ -16,7 +17,7 @@ const initialState: ContactsState = {
   user: {} as User,
   isLoggedIn: false,
   loading: false,
-  sortStatus: 'default'
+  sortStatus: SortValues.FIRST_ASC
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
