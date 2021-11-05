@@ -2,9 +2,10 @@
 .headerContainer {
   height: 50px;
   width: 100%;
-  background: #232323;
+  background: #212529;
   color: #fff;
   display: flex;
+  border-bottom: 1px solid #6c757d;
 
   .headerLeft{
     width: 50%;
@@ -34,6 +35,16 @@
       border-radius: 5px;
       padding: .5rem;
       outline: none;
+      background: #adb5bd;
+      font-family: 'Quicksand', sans-serif;
+      color: #212529;
+      font-weight: 600;
+    }
+    .search::placeholder {
+      color: #dee2e6;
+      font-family: 'Quicksand', sans-serif;
+      // text-transform: uppercase;
+      font-weight: 600;
     }
 
     .accountMenu {
