@@ -10,6 +10,8 @@ interface ContactsState {
   isLoggedIn: boolean;
   loading: boolean;
   sortStatus: SortValues;
+  firstClickCount: number;
+  lastClickCount: number;
 }
 
 const initialState: ContactsState = {
@@ -17,7 +19,9 @@ const initialState: ContactsState = {
   user: {} as User,
   isLoggedIn: false,
   loading: false,
-  sortStatus: SortValues.FIRST_ASC
+  sortStatus: SortValues.FIRST_ASC,
+  firstClickCount: 0,
+  lastClickCount: 0
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
@@ -61,6 +65,20 @@ const contactReducer = createReducer(initialState, (contacts) => {
       (state: ContactsState, { payload }) => ({
         ...state,
         sortStatus: payload,
+      })
+    )
+    .addCase(
+      ContactActions.setFirstClickCount,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        firstClickCount: payload,
+      })
+    )
+    .addCase(
+      ContactActions.setLastClickCount,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        lastClickCount: payload,
       })
     )
     .addDefaultCase((state: ContactsState) => state);
