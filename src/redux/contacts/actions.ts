@@ -11,3 +11,4 @@ export const setNewUser = createAction<User>("SET_NEW_USER");
 export const setSortStatus = createAction<any>('SET_SORT_STATUS');
 export const setFirstClickCount = createAction<number>('SET_FIRST_CLICK_COUNT');
 export const setLastClickCount = createAction<number>('SET_LAST_CLICK_COUNT');
+export const setContactSearch = createAction<string>('SET_CONTACT_SEARCH');

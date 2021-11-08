@@ -12,6 +12,7 @@ interface ContactsState {
   sortStatus: SortValues;
   firstClickCount: number;
   lastClickCount: number;
+  contactSearch: string;
 }
 
 const initialState: ContactsState = {
@@ -21,7 +22,8 @@ const initialState: ContactsState = {
   loading: false,
   sortStatus: SortValues.FIRST_ASC,
   firstClickCount: 0,
-  lastClickCount: 0
+  lastClickCount: 0,
+  contactSearch: ''
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
@@ -79,6 +81,13 @@ const contactReducer = createReducer(initialState, (contacts) => {
       (state: ContactsState, { payload }) => ({
         ...state,
         lastClickCount: payload,
+      })
+    )
+    .addCase(
+      ContactActions.setContactSearch,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        contactSearch: payload,
       })
     )
     .addDefaultCase((state: ContactsState) => state);

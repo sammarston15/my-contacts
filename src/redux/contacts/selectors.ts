@@ -6,6 +6,19 @@ export const selectFirstClickCount = (state: RootState) => state.contacts.firstC
 export const selectLastClickCount = (state: RootState) => state.contacts.lastClickCount;
 export const selectContacts =
   (sortStatus: SortValues) => (state: RootState) => {
+
+    // ======= Search/filter through contacts ========= 
+    if (state.contacts.contactSearch !== '') {
+      return state.contacts.contacts.filter((contact) => {
+        return (
+          contact.firstName.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
+          contact.lastName.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
+          contact.phone?.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
+          contact.email?.toLowerCase().includes(state.contacts.contactSearch.toLowerCase())
+      )})
+    }
+
+
     // ============= logic with select element ===============
     // // console.log({ sortStatus });
     // if (sortStatus === SortValues.FIRST_ASC) {
@@ -99,6 +112,10 @@ export const selectContacts =
         });
       }
 
+
+      
+
+      // default return statement
       return state.contacts.contacts
   };
 export const selectIsLoggedIn = (state: RootState) => state.contacts.isLoggedIn;
