@@ -2,7 +2,6 @@ const express = require("express");
 const session = require("express-session");
 const massive = require("massive");
 const cors = require("cors");
-const PORT = process.env.PORT || 8080;
 const path = require("path");
 const controller = require("./ctrl");
 require("dotenv").config();
@@ -37,4 +36,4 @@ app.get("*", (req, res) => {
 });
 
 // this is the listen for the port which heroku is giving your your server through the process.env.PORT
-app.listen(PORT, () => console.log(PORT, "ready!!"));
+app.listen(process.env.PORT || 8080, () => console.log("ready!!"));
