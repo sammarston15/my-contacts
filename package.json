@@ -52,8 +52,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": "15.14.0"
   }
+  
 }
