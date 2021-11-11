@@ -75,8 +75,53 @@ const getContacts = async (req, res) => {
   }
 };
 
+const newContact = async (req, res) => {
+  try {
+    const db = await req.app.get('db');
+    const { firstName, lastName, phone, email, address1, address2, city, state, zip } = req.body;
+
+    await db.contacts.insert({
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+      email: email,
+      address1: address1,
+      address2: address2,
+      city: city,
+      state: state,
+      zip: zip,
+      created_at: new Date(),
+      updated_at: new Date()
+    })
+
+    res.status(200).send('Successfully saved new contact!')
+  } catch (error) {
+    console.log('something went wrong: ', error)
+    res.status(500).send(error.stack)
+  }
+
+}
+// const newContact = async (req, res) => {
+//   try {
+//     const db = await req.app.get('db');
+//     const { firstName, lastName, phone, email, address1, address2, city, state, zip } = req.body;
+
+//     await db.query(`
+//     insert into contacts(first_name, last_name, phone, email, address1, address2, city, state, zip)
+//     values (${firstName}, ${lastName}, ${phone}, ${email}, ${address1}, ${address2}, ${city}, ${state}, ${zip})
+//     `)
+
+//     res.status(200).send('Successfully saved new contact!')
+//   } catch (error) {
+//     console.log('something went wrong: ', error)
+//     res.status(500).send(error)
+//   }
+
+// }
+
 module.exports = {
   createLogin,
   createSignup,
   getContacts,
+  newContact
 };

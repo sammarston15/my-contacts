@@ -4,6 +4,7 @@ import { User } from "../../models/interfaces/user";
 import * as ContactActions from "./actions";
 import { SortValues } from '../../models/SortValues'
 
+
 interface ContactsState {
   contacts: Contact[];
   user: User;
@@ -13,6 +14,8 @@ interface ContactsState {
   firstClickCount: number;
   lastClickCount: number;
   contactSearch: string;
+  newContact: Contact;
+
 }
 
 const initialState: ContactsState = {
@@ -23,7 +26,9 @@ const initialState: ContactsState = {
   sortStatus: SortValues.FIRST_ASC,
   firstClickCount: 0,
   lastClickCount: 0,
-  contactSearch: ''
+  contactSearch: '',
+  newContact: {} as Contact
+
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
@@ -90,6 +95,35 @@ const contactReducer = createReducer(initialState, (contacts) => {
         contactSearch: payload,
       })
     )
+    .addCase(
+      ContactActions.setNewContact.pending,
+      (state: ContactsState) => ({
+        ...state,
+        loading: true,
+        newContact: {} as Contact
+      })
+    )
+    .addCase(
+      ContactActions.setNewContact.fulfilled,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        loading: false,
+        newContact: payload,
+      })
+    )
+    .addCase(
+      ContactActions.setNewContact.rejected,
+      (state: ContactsState, { error }) => {
+        alert(`${error.stack}`)
+      }
+    )
+    // .addCase(
+    //   ContactActions.setNewContact,
+    //   (state: ContactsState, { payload }) => ({
+    //     ...state,
+    //     newContact: payload,
+    //   })
+    // )
     .addDefaultCase((state: ContactsState) => state);
 });
 

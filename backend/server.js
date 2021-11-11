@@ -27,6 +27,7 @@ app.use(cors({ credentials: true, origin: "*" }));
 
 // endpoints
 app.get("/api/contacts", controller.getContacts);
+app.post("/api/contacts", controller.newContact);
 app.post("/signup", controller.createSignup);
 app.post("/login", controller.createLogin);
 

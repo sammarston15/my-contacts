@@ -17,6 +17,8 @@
 
     .title {
       font-size: 1.5rem;
+      font-weight: 800;
+      text-decoration: none;
     }
   }
   .headerRight{
@@ -30,7 +32,7 @@
 
     .search{
       width: 40%;
-      margin-right: 2rem;
+      margin-right: 1rem;
       font-size: 1rem;
       border-radius: 5px;
       padding: .5rem;
@@ -39,6 +41,7 @@
       font-family: 'Quicksand', sans-serif;
       color: #dee2e6;
       font-weight: 600;
+      border: 2px solid #495057;
       
     }
     .search::placeholder {
@@ -47,13 +50,24 @@
       // text-transform: uppercase;
       font-weight: 600;
     }
+    .search:hover {
+      background: #495057;
+    }
 
-    .accountMenu {
-      background: lightslategrey;
-      width: 60px;
-      height: 2rem;
+    .btn {
       border-radius: 5px;
-      padding: 0 .5rem;
+      padding: .5rem .7rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      outline: none;
+      background: #343a40;
+      color: #fff;
+      border: 1px solid #495057;
+    }
+    .btn:hover {
+      cursor: pointer;
+      background: #495057;
     }
 
   }
