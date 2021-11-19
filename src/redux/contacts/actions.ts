@@ -5,7 +5,7 @@ import { Contact } from '../../models/interfaces/contact'
 import axios from 'axios'
 
 export const getAllContacts = createAsyncThunk<any>('CONTACTS/GET_ALL_CONTACTS', async () => await axios.get('/api/contacts'));
-export const setNewContact = createAsyncThunk<any, Contact>("SET_NEW_CONTACT", async (data) => {
+export const setNewContact = createAsyncThunk<any, Contact>("CONTACTS/SET_NEW_CONTACT", async (data) => {
   await axios.post('/api/contacts', data)
 });
 // export const setNewContact = createAction<Contact>("SET_NEW_CONTACT");

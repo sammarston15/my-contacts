@@ -121,4 +121,5 @@ export const selectContacts =
 export const selectIsLoggedIn = (state: RootState) => state.contacts.isLoggedIn;
 export const selectIsLoading = (state: RootState) => state.contacts.loading;
 export const selectSortStatus = (state: RootState) => state.contacts.sortStatus;
+export const selectNewContact = (state: RootState) => state.contacts.newContact;
 

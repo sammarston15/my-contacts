@@ -99,8 +99,7 @@ const contactReducer = createReducer(initialState, (contacts) => {
       ContactActions.setNewContact.pending,
       (state: ContactsState) => ({
         ...state,
-        loading: true,
-        newContact: {} as Contact
+        loading: true
       })
     )
     .addCase(
