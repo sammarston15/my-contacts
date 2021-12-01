@@ -11,11 +11,12 @@ export const selectContacts =
     if (state.contacts.contactSearch !== '') {
       return state.contacts.contacts.filter((contact) => {
         return (
-          contact.firstName.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
-          contact.lastName.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
+          contact.firstName?.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
+          contact.lastName?.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
           contact.phone?.toLowerCase().includes(state.contacts.contactSearch.toLowerCase()) || 
           contact.email?.toLowerCase().includes(state.contacts.contactSearch.toLowerCase())
-      )})
+        ) 
+      })
     }
 
 
@@ -74,8 +75,8 @@ export const selectContacts =
     if (state.contacts.firstClickCount === 1) {
         console.log("sort asc by first name");
         return [...state.contacts.contacts].sort((a, b) => {
-          const nameA = a.firstName.toLowerCase();
-          const nameB = b.firstName.toLowerCase();
+          const nameA = a.firstName?.toLowerCase();
+          const nameB = b.firstName?.toLowerCase();
           if (nameA < nameB) return -1;
           if (nameA > nameB) return 1;
           return 0;
@@ -84,8 +85,8 @@ export const selectContacts =
       if (state.contacts.firstClickCount === 2) {
         console.log("sort desc by first name");
         return [...state.contacts.contacts].sort((a, b) => {
-          const nameA = a.firstName.toLowerCase();
-          const nameB = b.firstName.toLowerCase();
+          const nameA = a.firstName?.toLowerCase();
+          const nameB = b.firstName?.toLowerCase();
           if (nameA > nameB) return -1;
           if (nameA < nameB) return 1;
           return 0;
@@ -94,8 +95,8 @@ export const selectContacts =
       if (state.contacts.lastClickCount === 1) {
         console.log("sort asc by last name");
         return [...state.contacts.contacts].sort((a, b) => {
-          const nameA = a.lastName.toLowerCase();
-          const nameB = b.lastName.toLowerCase();
+          const nameA = a.lastName?.toLowerCase();
+          const nameB = b.lastName?.toLowerCase();
           if (nameA < nameB) return -1;
           if (nameA > nameB) return 1;
           return 0;
@@ -104,8 +105,8 @@ export const selectContacts =
       if (state.contacts.lastClickCount === 2) {
         console.log("sort desc by last name");
         return [...state.contacts.contacts].sort((a, b) => {
-          const nameA = a.lastName.toLowerCase();
-          const nameB = b.lastName.toLowerCase();
+          const nameA = a.lastName?.toLowerCase();
+          const nameB = b.lastName?.toLowerCase();
           if (nameA > nameB) return -1;
           if (nameA < nameB) return 1;
           return 0;

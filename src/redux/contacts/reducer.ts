@@ -96,33 +96,34 @@ const contactReducer = createReducer(initialState, (contacts) => {
       })
     )
     .addCase(
-      ContactActions.setNewContact.pending,
+      ContactActions.saveNewContact.pending,
       (state: ContactsState) => ({
         ...state,
         loading: true
       })
     )
     .addCase(
-      ContactActions.setNewContact.fulfilled,
+      ContactActions.saveNewContact.fulfilled,
       (state: ContactsState, { payload }) => ({
         ...state,
         loading: false,
-        newContact: payload,
+        newContact: {} as Contact,
+        contacts: [...state.contacts, payload],
       })
     )
     .addCase(
-      ContactActions.setNewContact.rejected,
+      ContactActions.saveNewContact.rejected,
       (state: ContactsState, { error }) => {
         alert(`${error.stack}`)
       }
     )
-    // .addCase(
-    //   ContactActions.setNewContact,
-    //   (state: ContactsState, { payload }) => ({
-    //     ...state,
-    //     newContact: payload,
-    //   })
-    // )
+    .addCase(
+      ContactActions.setNewContact,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        newContact: payload,
+      })
+    )
     .addDefaultCase((state: ContactsState) => state);
 });
 

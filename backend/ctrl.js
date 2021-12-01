@@ -79,7 +79,8 @@ const newContact = async (req, res) => {
   try {
     const db = await req.app.get('db');
     const { firstName, lastName, phone, email, address1, address2, city, state, zip } = req.body;
-    const newContact = await db.contacts.insert({
+
+    const newContact = {
       first_name: firstName,
       last_name: lastName,
       phone: phone,
@@ -91,10 +92,22 @@ const newContact = async (req, res) => {
       zip: zip,
       created_at: new Date(),
       updated_at: new Date()
-    })
+    }
+    console.log('newContact', newContact)
     
-    console.log(newContact)
-    res.status(200).send(newContact)
+    await db.contacts.insert(newContact)
+    
+    res.status(200).send({
+      firstName,
+      lastName,
+      phone,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      zip
+    })
   } catch (error) {
     console.log('something went wrong: ', error)
     res.status(500).send(error)

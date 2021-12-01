@@ -5,10 +5,10 @@ import { Contact } from '../../models/interfaces/contact'
 import axios from 'axios'
 
 export const getAllContacts = createAsyncThunk<any>('CONTACTS/GET_ALL_CONTACTS', async () => await axios.get('/api/contacts'));
-export const setNewContact = createAsyncThunk<any, Contact>("CONTACTS/SET_NEW_CONTACT", async (data) => {
+export const saveNewContact = createAsyncThunk<any, Contact>("CONTACTS/SAVE_NEW_CONTACT", async (data) => {
   await axios.post('/api/contacts', data)
 });
-// export const setNewContact = createAction<Contact>("SET_NEW_CONTACT");
+export const setNewContact = createAction<any>("CONTACTS/SET_NEW_CONTACT");
 export const setNewLoggedIn = createAction<boolean>("SET_NEW_LOGGEDIN");
 export const setNewUser = createAction<User>("SET_NEW_USER");
 export const setSortStatus = createAction<any>('SET_SORT_STATUS');
