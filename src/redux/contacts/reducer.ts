@@ -2,8 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { Contact } from "../../models/interfaces/contact";
 import { User } from "../../models/interfaces/user";
 import * as ContactActions from "./actions";
-import { SortValues } from '../../models/SortValues'
-
+import { SortValues } from "../../models/SortValues";
 
 interface ContactsState {
   contacts: Contact[];
@@ -15,7 +14,6 @@ interface ContactsState {
   lastClickCount: number;
   contactSearch: string;
   newContact: Contact;
-
 }
 
 const initialState: ContactsState = {
@@ -26,18 +24,15 @@ const initialState: ContactsState = {
   sortStatus: SortValues.FIRST_ASC,
   firstClickCount: 0,
   lastClickCount: 0,
-  contactSearch: '',
-  newContact: {} as Contact
-
+  contactSearch: "",
+  newContact: {} as Contact,
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
   contacts
-    .addCase(
-      ContactActions.getAllContacts.pending, 
-      (state: ContactsState) => ({
-        ...state,
-        loading: true
+    .addCase(ContactActions.getAllContacts.pending, (state: ContactsState) => ({
+      ...state,
+      loading: true,
     }))
     .addCase(
       ContactActions.getAllContacts.fulfilled,
@@ -50,7 +45,7 @@ const contactReducer = createReducer(initialState, (contacts) => {
     .addCase(
       ContactActions.getAllContacts.rejected,
       (state: ContactsState, { error }) => {
-        alert(`${error.stack}`)
+        alert(`${error.stack}`);
       }
     )
     .addCase(
@@ -95,26 +90,23 @@ const contactReducer = createReducer(initialState, (contacts) => {
         contactSearch: payload,
       })
     )
-    .addCase(
-      ContactActions.saveNewContact.pending,
-      (state: ContactsState) => ({
-        ...state,
-        loading: true
-      })
-    )
+    .addCase(ContactActions.saveNewContact.pending, (state: ContactsState) => ({
+      ...state,
+      loading: true,
+    }))
     .addCase(
       ContactActions.saveNewContact.fulfilled,
       (state: ContactsState, { payload }) => ({
         ...state,
         loading: false,
         newContact: {} as Contact,
-        contacts: [...state.contacts, payload],
+        contacts: [...state.contacts, payload.data],
       })
     )
     .addCase(
       ContactActions.saveNewContact.rejected,
       (state: ContactsState, { error }) => {
-        alert(`${error.stack}`)
+        alert(`${error.stack}`);
       }
     )
     .addCase(

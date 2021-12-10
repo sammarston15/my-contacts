@@ -77,8 +77,18 @@ const getContacts = async (req, res) => {
 
 const newContact = async (req, res) => {
   try {
-    const db = await req.app.get('db');
-    const { firstName, lastName, phone, email, address1, address2, city, state, zip } = req.body;
+    const db = await req.app.get("db");
+    const {
+      firstName,
+      lastName,
+      phone,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+    } = req.body;
 
     const newContact = {
       first_name: firstName,
@@ -91,12 +101,12 @@ const newContact = async (req, res) => {
       state: state,
       zip: zip,
       created_at: new Date(),
-      updated_at: new Date()
-    }
-    console.log('newContact', newContact)
-    
-    await db.contacts.insert(newContact)
-    
+      updated_at: new Date(),
+    };
+    console.log("newContact", newContact);
+
+    await db.contacts.insert(newContact);
+
     res.status(200).send({
       firstName,
       lastName,
@@ -106,14 +116,13 @@ const newContact = async (req, res) => {
       address2,
       city,
       state,
-      zip
-    })
+      zip,
+    });
   } catch (error) {
-    console.log('something went wrong: ', error)
-    res.status(500).send(error)
+    console.log("something went wrong: ", error);
+    res.status(500).send(error);
   }
-
-}
+};
 // const newContact = async (req, res) => {
 //   try {
 //     const db = await req.app.get('db');
@@ -136,5 +145,5 @@ module.exports = {
   createLogin,
   createSignup,
   getContacts,
-  newContact
+  newContact,
 };
