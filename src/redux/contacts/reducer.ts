@@ -100,7 +100,7 @@ const contactReducer = createReducer(initialState, (contacts) => {
         ...state,
         loading: false,
         newContact: {} as Contact,
-        contacts: [...state.contacts, payload.data],
+        contacts: payload.data,
       })
     )
     .addCase(

@@ -64,9 +64,15 @@ const getContacts = async (req, res) => {
     const contacts = await db.query(`select * from contacts`);
     res.status(200).send(
       contacts.map((contact) => ({
-        ...contact,
         firstName: contact.first_name,
         lastName: contact.last_name,
+        phone: contact.phone,
+        email: contact.email,
+        address1: contact.address1,
+        address2: contact.address2,
+        city: contact.city,
+        state: contact.state,
+        zip: contact.zip
       }))
     );
   } catch (error) {
@@ -107,17 +113,10 @@ const newContact = async (req, res) => {
 
     await db.contacts.insert(newContact);
 
-    res.status(200).send({
-      firstName,
-      lastName,
-      phone,
-      email,
-      address1,
-      address2,
-      city,
-      state,
-      zip,
-    });
+    // get all contacts
+    const contacts = await db.query(`select * from contacts`);
+
+    res.status(200).send(contacts);
   } catch (error) {
     console.log("something went wrong: ", error);
     res.status(500).send(error);
