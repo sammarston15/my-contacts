@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllContacts, setFirstClickCount, setLastClickCount, setSortStatus } from "../../redux/contacts/actions";
+import { getAllContacts, setFirstClickCount, setLastClickCount, /* setSortStatus */ } from "../../redux/contacts/actions";
 import {
   selectFirstClickCount,
   selectLastClickCount,
@@ -9,7 +9,7 @@ import {
   selectSortStatus,
 } from "../../redux/contacts/selectors";
 import styles from "./home.module.scss";
-import { SortValues } from "../../models/SortValues";
+// import { SortValues } from "../../models/SortValues";
 
 const ContactsList = () => {
   // DISPATCH HOOK

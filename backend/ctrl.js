@@ -64,9 +64,15 @@ const getContacts = async (req, res) => {
     const contacts = await db.query(`select * from contacts`);
     res.status(200).send(
       contacts.map((contact) => ({
-        ...contact,
         firstName: contact.first_name,
         lastName: contact.last_name,
+        phone: contact.phone,
+        email: contact.email,
+        address1: contact.address1,
+        address2: contact.address2,
+        city: contact.city,
+        state: contact.state,
+        zip: contact.zip
       }))
     );
   } catch (error) {
@@ -75,8 +81,68 @@ const getContacts = async (req, res) => {
   }
 };
 
+const newContact = async (req, res) => {
+  try {
+    const db = await req.app.get("db");
+    const {
+      firstName,
+      lastName,
+      phone,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+    } = req.body;
+
+    const newContact = {
+      first_name: firstName,
+      last_name: lastName,
+      phone: phone,
+      email: email,
+      address1: address1,
+      address2: address2,
+      city: city,
+      state: state,
+      zip: zip,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+    console.log("newContact", newContact);
+
+    await db.contacts.insert(newContact);
+
+    // get all contacts
+    const contacts = await db.query(`select * from contacts`);
+
+    res.status(200).send(contacts);
+  } catch (error) {
+    console.log("something went wrong: ", error);
+    res.status(500).send(error);
+  }
+};
+// const newContact = async (req, res) => {
+//   try {
+//     const db = await req.app.get('db');
+//     const { firstName, lastName, phone, email, address1, address2, city, state, zip } = req.body;
+
+//     await db.query(`
+//     insert into contacts(first_name, last_name, phone, email, address1, address2, city, state, zip)
+//     values (${firstName}, ${lastName}, ${phone}, ${email}, ${address1}, ${address2}, ${city}, ${state}, ${zip})
+//     `)
+
+//     res.status(200).send('Successfully saved new contact!')
+//   } catch (error) {
+//     console.log('something went wrong: ', error)
+//     res.status(500).send(error)
+//   }
+
+// }
+
 module.exports = {
   createLogin,
   createSignup,
   getContacts,
+  newContact,
 };
