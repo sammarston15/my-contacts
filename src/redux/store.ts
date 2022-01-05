@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import contactReducer from "./contacts/reducer";
 
 // when adding a new reducer, make sure to add it here
@@ -15,3 +16,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>() // Export a hook that can be reused to resolve types

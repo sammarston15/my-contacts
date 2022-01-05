@@ -4,6 +4,7 @@ import styles from "./App.module.scss";
 import { Home } from "../home/home";
 import { Login } from "../login/Login";
 import NewContact from '../newContact/NewContact'
+import EditContact from "../editContact/EditContact";
 
 export const App: FC = () => (
   <Router>
@@ -12,6 +13,7 @@ export const App: FC = () => (
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/new" component={NewContact} />
+        <Route path='/contact/:contactIndex' component={EditContact} />
       </Switch>
     </div>
   </Router>

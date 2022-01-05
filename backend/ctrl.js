@@ -56,7 +56,6 @@ const createSignup = async (req, res, next) => {
 };
 
 const getContacts = async (req, res) => {
-  console.log({ req, app: req.app });
   try {
     const db = await req.app.get("db");
 
@@ -64,6 +63,7 @@ const getContacts = async (req, res) => {
     const contacts = await db.query(`select * from contacts`);
     res.status(200).send(
       contacts.map((contact) => ({
+        id: contact.id,
         firstName: contact.first_name,
         lastName: contact.last_name,
         phone: contact.phone,
@@ -122,27 +122,65 @@ const newContact = async (req, res) => {
     res.status(500).send(error);
   }
 };
-// const newContact = async (req, res) => {
-//   try {
-//     const db = await req.app.get('db');
-//     const { firstName, lastName, phone, email, address1, address2, city, state, zip } = req.body;
 
-//     await db.query(`
-//     insert into contacts(first_name, last_name, phone, email, address1, address2, city, state, zip)
-//     values (${firstName}, ${lastName}, ${phone}, ${email}, ${address1}, ${address2}, ${city}, ${state}, ${zip})
-//     `)
+const editContact = async (req, res) => {
+  try {
+    const db = await req.app.get("db");
+    const {
+      editingContact, changes
+    } = req.body;
+    console.log(req.body)
+    
+    let fieldChanges = [{key: 'id', value: editingContact.id}, {key: 'updated_at', value: new Date()}]
+    if (changes.firstName) {
+      fieldChanges.push({key: 'first_name', value: changes.firstName})
+    }
+    if (changes.lastName) {
+      fieldChanges.push({key: 'last_name', value: changes.lastName})
+    }
+    if (changes.phone) {
+      fieldChanges.push({key: 'phone', value: changes.phone})
+    }
+    if (changes.email) {
+      fieldChanges.push({key: 'email', value: changes.email})
+    }
+    if (changes.address1) {
+      fieldChanges.push({key: 'address1', value: changes.address1})
+    }
+    if (changes.address2) {
+      fieldChanges.push({key: 'address2', value: changes.address2})
+    }
+    if (changes.city) {
+      fieldChanges.push({key: 'city', value: changes.city})
+    }
+    if (changes.state) {
+      fieldChanges.push({key: 'state', value: changes.state})
+    }
+    if (changes.zip) {
+      fieldChanges.push({key: 'zip', value: changes.zip})
+    }
+    console.log('fieldChanges: ', fieldChanges)
 
-//     res.status(200).send('Successfully saved new contact!')
-//   } catch (error) {
-//     console.log('something went wrong: ', error)
-//     res.status(500).send(error)
-//   }
+    /* convert fieldChanges array to a single object */
+    const result = fieldChanges.reduce((obj, {key, value}) => ({...obj, [key]: value}), {});
 
-// }
+    /* update the contact details in the db */
+    await db.contacts.save(result)
+
+    // get all contacts
+    const contacts = await db.query(`select * from contacts`);
+
+    res.status(200).send(contacts);
+  } catch (error) {
+    console.log("something went wrong: ", error);
+    res.status(500).send(error);
+  }
+}
 
 module.exports = {
   createLogin,
   createSignup,
   getContacts,
   newContact,
+  editContact
 };
