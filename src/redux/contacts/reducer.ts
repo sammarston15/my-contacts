@@ -14,6 +14,8 @@ interface ContactsState {
   lastClickCount: number;
   contactSearch: string;
   newContact: Contact;
+  editingContact: Contact;
+  updatedContact: Contact;
 }
 
 const initialState: ContactsState = {
@@ -26,6 +28,8 @@ const initialState: ContactsState = {
   lastClickCount: 0,
   contactSearch: "",
   newContact: {} as Contact,
+  editingContact: {} as Contact,
+  updatedContact: {} as Contact
 };
 
 const contactReducer = createReducer(initialState, (contacts) => {
@@ -109,11 +113,45 @@ const contactReducer = createReducer(initialState, (contacts) => {
         alert(`${error.stack}`);
       }
     )
+    .addCase(ContactActions.saveEditedContact.pending, (state: ContactsState) => ({
+      ...state,
+      loading: true,
+    }))
+    .addCase(
+      ContactActions.saveEditedContact.fulfilled,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        loading: false,
+        editingContact: {} as Contact,
+        updatedContact: {} as Contact,
+        contacts: payload.data,
+      })
+    )
+    .addCase(
+      ContactActions.saveEditedContact.rejected,
+      (state: ContactsState, { error }) => {
+        alert(`${error.stack}`);
+      }
+    )
     .addCase(
       ContactActions.setNewContact,
       (state: ContactsState, { payload }) => ({
         ...state,
         newContact: payload,
+      })
+    )
+    .addCase(
+      ContactActions.setEditingContact,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        editingContact: payload,
+      })
+    )
+    .addCase(
+      ContactActions.setUpdatedContact,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        updatedContact: payload,
       })
     )
     .addDefaultCase((state: ContactsState) => state);

@@ -4,6 +4,8 @@ import { SortValues } from "../../models/SortValues";
 export const selectUser = (state: RootState) => state.contacts.user;
 export const selectFirstClickCount = (state: RootState) => state.contacts.firstClickCount;
 export const selectLastClickCount = (state: RootState) => state.contacts.lastClickCount;
+export const selectEditingContact = (contactIndex: number) => (state: RootState) => state.contacts.contacts.find(contact => contact.id == contactIndex);
+export const selectUpdatedContact = (state: RootState) => state.contacts.updatedContact;
 export const selectContacts =
   (sortStatus: SortValues) => (state: RootState) => {
 
