@@ -21,6 +21,7 @@ app.use(
   })
 );
 app.use(express.static(path.join(__dirname, 'build')))
+app.use('/build', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "*" }));
 
