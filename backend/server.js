@@ -20,7 +20,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(express.static(path.join(__dirname, 'public')))
+app.use('/static', express.static(path.join(__dirname, 'public')))
 // app.use(express.static(path.join(__dirname, "build")));
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "*" }));
