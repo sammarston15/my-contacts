@@ -33,7 +33,7 @@ app.post("/login", controller.createLogin);
 
 // this is a catch all so that your front end always shows up when hosted
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build/index.html'))
+  res.sendFile(path.join(__dirname, '../build/index.html'))
   // res.sendFile('index.html', {root: 'public'});
 })
 
