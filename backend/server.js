@@ -20,8 +20,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use(express.static(path.join(__dirname, 'build')))
-app.use('/build', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "*" }));
 
@@ -34,9 +33,9 @@ app.post("/login", controller.createLogin);
 
 // this is a catch all so that your front end always shows up when hosted
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build/index.html'))
+  // res.sendFile(path.join(__dirname, 'build/index.html'))
+  res.sendFile('index.html', {root: 'public'});
 })
-// res.sendFile('index.html', {root: 'public'});
 
 // this is the listen for the port which heroku is giving your your server through the process.env.PORT
 app.listen(process.env.PORT || 8080, () => console.log("ready!!"));
