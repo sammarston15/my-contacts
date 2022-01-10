@@ -34,8 +34,8 @@ app.post("/login", controller.createLogin);
 
 // this is a catch all so that your front end always shows up when hosted
 app.get("*", (req, res) => {
-  // res.sendFile(path.join(__dirname, "build/index.html"));
-  res.sendFile('index.html', {root: 'public'});
+  res.sendFile(path.join(__dirname, "build/index.html"));
+  // res.sendFile('index.html', {root: 'public'});
 });
 
 // this is the listen for the port which heroku is giving your your server through the process.env.PORT
