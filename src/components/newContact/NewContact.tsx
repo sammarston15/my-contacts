@@ -1,20 +1,21 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import styles from './newContact.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../redux/store'
 import { selectIsLoading, selectNewContact } from '../../redux/contacts/selectors'
-// import { Contact } from '../../models/interfaces/contact'
 import { setNewContact, saveNewContact } from '../../redux/contacts/actions'
+import { useHistory } from 'react-router-dom'
 
 
 // Components
 import Header from '../header/Header'
-import { Contact } from '../../models/interfaces/contact'
 
 const NewContact: FC = (props) => {
+  let history = useHistory();
   const loading = useSelector(selectIsLoading);
   const newContact = useSelector(selectNewContact);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setNewContact({
@@ -23,7 +24,10 @@ const NewContact: FC = (props) => {
     }))
   };
 
-  const handleSave = () => dispatch(saveNewContact(newContact))
+  const handleSave = () => dispatch(saveNewContact(newContact)).unwrap().then(() => {
+    alert('Successfully added contact')
+    history.push('/')
+  })
 
   return (
     <>

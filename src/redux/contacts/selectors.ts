@@ -4,7 +4,7 @@ import { SortValues } from "../../models/SortValues";
 export const selectUser = (state: RootState) => state.contacts.user;
 export const selectFirstClickCount = (state: RootState) => state.contacts.firstClickCount;
 export const selectLastClickCount = (state: RootState) => state.contacts.lastClickCount;
-export const selectEditingContact = (contactIndex: number) => (state: RootState) => state.contacts.contacts.find(contact => contact.id == contactIndex);
+export const selectEditingContact = (contactIndex: number) => (state: RootState) => state.contacts.contacts.find(contact => contact.id === Number(contactIndex));
 export const selectUpdatedContact = (state: RootState) => state.contacts.updatedContact;
 export const selectContacts =
   (sortStatus: SortValues) => (state: RootState) => {
@@ -75,7 +75,7 @@ export const selectContacts =
 
     // ================= logic with click count of table title ===========================
     if (state.contacts.firstClickCount === 1) {
-        console.log("sort asc by first name");
+        // console.log("sort asc by first name");
         return [...state.contacts.contacts].sort((a, b) => {
           const nameA = a.firstName?.toLowerCase();
           const nameB = b.firstName?.toLowerCase();
@@ -85,7 +85,7 @@ export const selectContacts =
         });
       }
       if (state.contacts.firstClickCount === 2) {
-        console.log("sort desc by first name");
+        // console.log("sort desc by first name");
         return [...state.contacts.contacts].sort((a, b) => {
           const nameA = a.firstName?.toLowerCase();
           const nameB = b.firstName?.toLowerCase();
@@ -95,7 +95,7 @@ export const selectContacts =
         });
       }
       if (state.contacts.lastClickCount === 1) {
-        console.log("sort asc by last name");
+        // console.log("sort asc by last name");
         return [...state.contacts.contacts].sort((a, b) => {
           const nameA = a.lastName?.toLowerCase();
           const nameB = b.lastName?.toLowerCase();
@@ -105,7 +105,7 @@ export const selectContacts =
         });
       }
       if (state.contacts.lastClickCount === 2) {
-        console.log("sort desc by last name");
+        // console.log("sort desc by last name");
         return [...state.contacts.contacts].sort((a, b) => {
           const nameA = a.lastName?.toLowerCase();
           const nameB = b.lastName?.toLowerCase();

@@ -177,10 +177,31 @@ const editContact = async (req, res) => {
   }
 }
 
+const deleteContact = async (req, res) => {
+  try {
+    const db = await req.app.get("db");
+    const {
+      editingContact
+    } = req.body;
+    console.log('req.body', req.body)
+
+    /* delete the contact from the db */
+    await db.contacts.destroy(editingContact.id)
+
+    // send the updated contacts list and successful response code to the frontend
+    res.status(200).send('Successfully deleted contact.');
+
+  } catch (error) {
+    console.log("something went wrong: ", error);
+    res.status(500).send(error);
+  }
+}
+
 module.exports = {
   createLogin,
   createSignup,
   getContacts,
   newContact,
-  editContact
+  editContact,
+  deleteContact
 };

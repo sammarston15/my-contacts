@@ -9,12 +9,11 @@ import {
   selectSortStatus,
 } from "../../redux/contacts/selectors";
 import styles from "./home.module.scss";
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 // import { SortValues } from "../../models/SortValues";
 
 const ContactsList = () => {
   let history = useHistory();
-  let location = useLocation();
 
   // DISPATCH HOOK
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const ContactsList = () => {
 
   useEffect(() => {
     dispatch(getAllContacts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
