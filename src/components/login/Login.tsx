@@ -19,7 +19,7 @@ export const Login: FC = () => {
     }));
   };
 
-  console.log(data);
+
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginModal}>

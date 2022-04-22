@@ -133,6 +133,24 @@ const contactReducer = createReducer(initialState, (contacts) => {
         alert(`${error.stack}`);
       }
     )
+    .addCase(ContactActions.deleteContact.pending, (state: ContactsState) => ({
+      ...state,
+      loading: true,
+    }))
+    .addCase(
+      ContactActions.deleteContact.fulfilled,
+      (state: ContactsState, { payload }) => ({
+        ...state,
+        loading: false,
+        editingContact: {} as Contact,
+      })
+    )
+    .addCase(
+      ContactActions.deleteContact.rejected,
+      (state: ContactsState, { error }) => {
+        console.log(`${error.stack}`);
+      }
+    )
     .addCase(
       ContactActions.setNewContact,
       (state: ContactsState, { payload }) => ({

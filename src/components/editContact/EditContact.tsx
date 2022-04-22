@@ -1,21 +1,21 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import styles from './editContact.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useAppDispatch } from '../../redux/store'
 import { selectIsLoading, selectEditingContact, selectUpdatedContact} from '../../redux/contacts/selectors'
 import { setUpdatedContact, setEditingContact, saveEditedContact } from '../../redux/contacts/actions'
-import { useParams, useHistory, useLocation } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 
 // Components
 import Header from '../header/Header'
+import DeleteContact from '../deleteContact/DeleteContact'
 
 
 const EditContact: FC = () => {
   let { contactIndex } : any = useParams();
+
   let history = useHistory();
-  // let location = useLocation();
-  console.log(history)
   
   const loading = useSelector(selectIsLoading);
   
@@ -75,8 +75,9 @@ const EditContact: FC = () => {
           <input type="text" name='state' defaultValue={editingContact?.state} onChange={handleChange}/>
           <label>Zip Code</label>
           <input type="text" name='zip' defaultValue={editingContact?.zip} onChange={handleChange}/>
-          <button className={styles.btn} type='submit'>Save</button>
+          <button className={styles.saveButton} type='submit'>Save</button>
         </form>
+        <DeleteContact />
       </div>
       }
     </>
