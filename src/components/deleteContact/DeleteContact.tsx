@@ -37,7 +37,7 @@ const DeleteContact: FC = () => {
               swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                text: 'You have successfully deleted this contact.'
+                text: 'You have successfully deleted the contact.'
               })
             history.push('/')
           }).catch(error => {
