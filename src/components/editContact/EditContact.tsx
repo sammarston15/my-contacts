@@ -43,7 +43,7 @@ const EditContact: FC = () => {
       dispatch(saveEditedContact(data)).unwrap().then(() => {
         alert('successfully saved edited contact!')
         history.push('/')
-      }).catch(error => alert(error))
+      }).catch((error: any) => alert(error))
     } else {
       alert('problem with updating contact | \'updatedContact\' is falsy')
     }

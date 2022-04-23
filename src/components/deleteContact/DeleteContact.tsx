@@ -40,14 +40,14 @@ const DeleteContact: FC = () => {
                 text: 'You have successfully deleted the contact.'
               })
             history.push('/')
-          }).catch(error => {
+          }).catch((error: any) => {
             swal.fire({
               icon: 'error',
               text: JSON.stringify(error)
             }).then(() => history.push('/'))
           })
         }
-      }).catch(error => {
+      }).catch((error: any) => {
         swal.fire({
           icon: 'error',
           text: JSON.stringify(error)
