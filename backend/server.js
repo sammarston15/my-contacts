@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const controller = require("./ctrl");
 require("dotenv").config();
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 massive(process.env.DATABASE_URL).then((db) => {
@@ -39,4 +40,4 @@ app.get('*', (req, res) => {
 })
 
 // this is the listen for the port which heroku is giving your your server through the process.env.PORT
-app.listen(process.env.PORT || 8080, () => console.log("ready!!"));
+app.listen(PORT, () => console.log("ready!!"));
