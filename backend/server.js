@@ -8,9 +8,15 @@ require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 const app = express();
 
-massive(process.env.DATABASE_URL).then((db) => {
-  app.set("db", db);
+const db = massive({
+  host: 'ec2-18-234-15-247.compute-1.amazonaws.com',
+  port: 5432,
+  database: 'd6g9dq1feqve0a',
+  user: 'mcoavwgfcncuqb',
+  password: 'a7e417527e82e6b8f204d705c5bdf204c4460d2e6695fed278129c0409ec76d7',
+  ssl: true,
 });
+app.set("db", db);
 
 app.use(
   session({
