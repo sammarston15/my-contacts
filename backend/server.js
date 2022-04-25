@@ -8,6 +8,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 const app = express();
 
+// use massiveJS to connect to the db
 const db = massive({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -16,6 +17,8 @@ const db = massive({
   password: process.env.DB_PASS,
   ssl: true,
 });
+
+// set the db connection to the server's 'db' variable
 app.set("db", db);
 
 app.use(
