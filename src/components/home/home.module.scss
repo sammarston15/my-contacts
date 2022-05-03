@@ -67,3 +67,38 @@
   }
 }
 
+// for when the screen size is less than 600px
+@media (max-width: 600px) {
+  .home {
+    .contactList{
+      .listHeader {
+        .columnTitle:nth-child(3) {
+          display: none;
+        }
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+  .contactList {
+    .listHeader {
+      .columnTitle:nth-child(4) {
+        display: none;
+      }
+    }
+  }
+  .home {
+    .contactList {
+      .contactCard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+  .contactCard div:nth-child(3) {
+    display: none;
+    // background: red;
+  }
+  .contactCard div:nth-child(4) {
+    display: none;
+    // background: blue;
+  }
+}

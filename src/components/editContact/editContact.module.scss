@@ -104,3 +104,11 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .editContactContainer {
+    .contactForm {
+      width: 80%;
+    }
+  }
+}
