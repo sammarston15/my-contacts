@@ -8,7 +8,5 @@ export interface Contact {
   address2: string,
   city: string,
   state: string,
-  zip: string,
-  createdAt: string,
-  updatedAt: string,
+  zip: string
 }
